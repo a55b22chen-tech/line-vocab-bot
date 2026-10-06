@@ -7,16 +7,11 @@
 - `單字：apple` → `apple：蘋果`
 - 空白單字會提醒補充。
 - 查無資料時會提供提示。
-- 驗證 LINE webhook 簽章後才處理訊息。
 
-## 測試紀錄
+## 開發紀錄與實測
 
-本機訊息處理測試：4 項通過、0 項失敗。逐項輸入、預期和實際結果見[開發紀錄網頁](./)。目前尚未完成 LINE App 對話與 HTTPS webhook 實測。
+本機訊息處理測試：4 項通過、0 項失敗。逐項輸入、預期與實際結果請看[開發紀錄網頁](https://a55b22chen-tech.github.io/line-vocab-bot/)。目前尚未完成 LINE App 對話與 HTTPS webhook 實測。
 
-## 本機啟動
+## 目前進度
 
-1. 安裝 Node.js 18 或更新版本。
-2. 將 `.env.example` 複製為 `.env`，填入自己的 Channel secret 和 Channel access token。
-3. 執行 `npm start`。
-
-`.env` 含有密鑰，請勿上傳；本專案 `.gitignore` 已排除 `.env`。
+已完成 Bot 訊息處理函式初版；LINE access token、HTTPS webhook 與 LINE App 對話實測待完成。設定資料請留在本機環境，不要上傳 Channel secret、access token 或 `.env`。
