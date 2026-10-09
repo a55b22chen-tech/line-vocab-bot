@@ -3,68 +3,69 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>單字小幫手｜開發紀錄</title>
+  <title>單字小幫手｜第一版與改善版開發紀錄</title>
   <style>
-    :root { color-scheme: light; --ink: #17324d; --teal: #167d8d; --paper: #f5f8f9; --line: #d4e1e5; }
-    * { box-sizing: border-box; }
-    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.65 "Microsoft JhengHei", "Noto Sans TC", sans-serif; }
-    main { max-width: 900px; margin: 0 auto; padding: 40px 22px 64px; }
-    header { padding: 28px 30px; background: var(--ink); color: white; border-left: 8px solid #55bac1; }
-    h1 { margin: 0 0 8px; font-size: clamp(28px, 5vw, 42px); }
-    header p { margin: 0; color: #dce8ee; }
-    section { margin-top: 24px; padding: 22px 24px; background: white; border: 1px solid var(--line); }
-    h2 { margin: 0 0 12px; font-size: 22px; color: var(--teal); }
-    p { margin: 8px 0; }
-    table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 15px; }
-    th, td { padding: 10px 12px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
-    th { background: var(--ink); color: white; }
-    .pass { color: #17633a; font-weight: 700; }
-    .note { padding: 12px 14px; background: #fff6e8; border-left: 4px solid #d88a32; }
-    pre { overflow-x: auto; padding: 14px; background: #102638; color: #e8f2f4; font: 14px/1.55 Consolas, monospace; }
-    a { color: #086b7b; }
-    footer { margin-top: 22px; color: #52616b; font-size: 14px; }
-    @media (max-width: 640px) { main { padding: 20px 12px 40px; } section { padding: 18px 14px; } table { font-size: 13px; } th, td { padding: 8px 7px; } }
+    :root { color-scheme: light; --ink:#17324d; --teal:#167d8d; --paper:#f5f8f9; --line:#d4e1e5; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--paper); color:var(--ink); font:16px/1.65 "Microsoft JhengHei","Noto Sans TC",sans-serif; }
+    main { max-width:960px; margin:0 auto; padding:36px 20px 60px; }
+    header { padding:26px 30px; background:var(--ink); color:white; border-left:8px solid #55bac1; }
+    h1 { margin:0 0 8px; font-size:clamp(28px,5vw,40px); }
+    header p { margin:0; color:#dce8ee; }
+    section { margin-top:22px; padding:22px 24px; background:white; border:1px solid var(--line); }
+    h2 { margin:0 0 12px; font-size:22px; color:var(--teal); }
+    h3 { margin:18px 0 8px; font-size:18px; }
+    p { margin:8px 0; }
+    .table-wrap { overflow-x:auto; }
+    table { width:100%; border-collapse:collapse; margin-top:12px; font-size:14px; }
+    th,td { padding:9px 10px; border:1px solid var(--line); text-align:left; vertical-align:top; }
+    th { background:var(--ink); color:white; }
+    .pass { color:#17633a; font-weight:700; }
+    .note { padding:12px 14px; background:#fff6e8; border-left:4px solid #d88a32; }
+    a { color:#086b7b; }
+    footer { margin-top:20px; color:#52616b; font-size:14px; }
+    @media(max-width:640px) { main{padding:18px 10px 36px;} section{padding:16px 12px;} table{min-width:680px;} }
   </style>
 </head>
 <body>
-  <main>
-    <header>
-      <h1>單字小幫手</h1>
-      <p>LINE Bot 專題｜開發紀錄第一版｜更新日期：2026-10-06</p>
-    </header>
-    <section id="purpose">
-      <h2>專題用途與功能</h2>
-      <p>給想利用零碎時間複習英文單字的同學使用。輸入「單字：英文單字」，Bot 查詢目前收錄的資料並回覆中文意思。</p>
-      <p>目前收錄 apple、book、cat、dog、school；空白輸入會提醒補字，未收錄的單字會告知查無資料。</p>
-    </section>
-    <section id="progress">
-      <h2>目前進度</h2>
-      <p>已完成 Node.js Bot 程式初版和本機指令測試。LINE Official Account 的 Messaging API 已啟用；Channel secret 已存入本機 .env。Channel access token 尚未設定，因此尚未部署公開 HTTPS webhook，也還不能在 LINE 對話中實測。</p>
-      <p class="note"><strong>目前問題：</strong>待取得並本機設定 Channel access token，之後再啟動服務、設定 HTTPS webhook，完成 LINE 實際對話測試。</p>
-    </section>
-    <section id="evidence">
-      <h2>實測結果｜本機指令測試</h2>
-      <p>測試日期：2026-10-06。以 Node.js 內建測試執行 Bot 的訊息處理函式。以下是程式實際輸入與輸出；這是本機功能測試，尚非 LINE App 對話截圖。</p>
-      <table>
-        <thead><tr><th>輸入</th><th>預期結果</th><th>實際結果</th><th>狀態</th></tr></thead>
-        <tbody>
-          <tr><td>單字：apple</td><td>apple：蘋果</td><td>apple：蘋果</td><td class="pass">通過</td></tr>
-          <tr><td>單字：</td><td>提醒輸入英文單字</td><td>請在「單字：」後輸入要查詢的英文單字。</td><td class="pass">通過</td></tr>
-          <tr><td>單字：xyz</td><td>告知查無此單字</td><td>目前沒有「xyz」的單字資料，請試試 apple、book、cat、dog 或 school。</td><td class="pass">通過</td></tr>
-        </tbody>
-      </table>
-      <h3>測試執行紀錄</h3>
-      <pre>測試：4 項｜通過：4｜失敗：0
-✓ 收錄的單字會回覆中文意思
-✓ 只有指令時會提醒補上單字
-✓ 未收錄的單字會告知查無資料
-✓ 不支援的格式會顯示使用提示</pre>
-    </section>
-    <section id="next">
-      <h2>下一步</h2>
-      <p>設定 Channel access token，啟動伺服器並連接 HTTPS webhook；在 LINE 傳送正常、空白和未收錄單字，將真實回覆截圖補在本頁「實測結果」段落。</p>
-    </section>
-    <footer>第一版保留作為課堂紀錄；後續改善版會補上 LINE 實測結果，並記錄修改前後差異。</footer>
-  </main>
+<main>
+  <header>
+    <h1>單字小幫手</h1>
+    <p>LINE Bot 專題｜第一版保留，改善版更新日期：2026-10-09</p>
+  </header>
+  <section id="improvement">
+    <h2>改善版紀錄｜2026-10-09</h2>
+    <p><strong>原本的問題：</strong>第一版只在輸入格式不符時提供一個範例，初次使用的人不知道可查哪些單字，也不清楚操作方式。</p>
+    <p><strong>修改內容：</strong>新增「說明」、「幫助」及 help 指令，回覆查詢格式、完整範例與目前收錄的單字；原有查詢功能維持不變。</p>
+    <h3>修改前後差異</h3>
+    <p>修改前：使用者需要猜測「單字：apple」格式。修改後：輸入「說明」或 help，即可查看格式、範例及 apple、book、cat、dog、school 五個收錄字。</p>
+    <h3>改善版重新測試｜5 項通過，0 項失敗</h3>
+    <p>測試日期：2026-10-09｜執行方式：Node.js 內建測試（node --test）</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>輸入</th><th>預期結果</th><th>實際結果</th><th>狀態</th></tr></thead>
+      <tbody>
+        <tr><td>說明</td><td>顯示查詢格式、範例和收錄清單</td><td>查詢方式：單字：英文單字<br>例如：單字：apple<br>目前收錄：apple、book、cat、dog、school。</td><td class="pass">通過</td></tr>
+        <tr><td>HELP</td><td>英文指令不分大小寫，回覆同一份說明</td><td>查詢方式：單字：英文單字<br>例如：單字：apple<br>目前收錄：apple、book、cat、dog、school。</td><td class="pass">通過</td></tr>
+        <tr><td>單字：apple</td><td>原有查詢功能仍回覆中文意思</td><td>apple：蘋果</td><td class="pass">通過</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">以上為本機訊息處理函式測試，不是 LINE App 對話實測。LINE App 對話與 HTTPS webhook 尚待設定及測試。</p>
+  </section>
+  <section id="first-version">
+    <h2>第一版保留紀錄｜2026-10-06</h2>
+    <p>用途：讓同學輸入「單字：英文單字」查詢預先收錄的字詞。第一版收錄 apple、book、cat、dog、school，包含空白輸入提醒與查無資料提示。</p>
+    <p><strong>第一版測試結果：</strong>本機測試 4 項通過、0 項失敗；第一版的 GitHub commit 與測試紀錄仍保留於專案版本歷史。</p>
+    <div class="table-wrap"><table>
+      <thead><tr><th>輸入</th><th>預期結果</th><th>第一版實際結果</th><th>狀態</th></tr></thead>
+      <tbody>
+        <tr><td>單字：apple</td><td>apple：蘋果</td><td>apple：蘋果</td><td class="pass">通過</td></tr>
+        <tr><td>單字：</td><td>提醒補上英文單字</td><td>請在「單字：」後輸入要查詢的英文單字。</td><td class="pass">通過</td></tr>
+        <tr><td>單字：xyz</td><td>告知查無資料</td><td>目前沒有「xyz」的單字資料，並提示可查詢的字詞。</td><td class="pass">通過</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note"><strong>尚未完成：</strong>LINE access token、公開 HTTPS webhook 及 LINE App 實際對話測試。</p>
+  </section>
+  <footer>本頁保留第一版進度與測試，改善版新增 help 使用說明並重新測試。後續完成 LINE 對話測試後，會補上實際對話證明。</footer>
+</main>
 </body>
 </html>
